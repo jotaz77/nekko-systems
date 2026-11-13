@@ -2,7 +2,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  MessageCircleQuote,
+  MessageCircle,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -64,7 +64,7 @@ export function Hero() {
             <article className="flex min-h-[245px] flex-col justify-between rounded-[1.75rem] border border-white/10 bg-zinc-950/90 p-6 shadow-2xl shadow-black/30 backdrop-blur">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">A experiência NEKKO</span>
-                <MessageCircleQuote size={18} className="text-zinc-300" />
+                <MessageCircle size={18} className="text-zinc-300" />
               </div>
               <div>
                 <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Nosso compromisso</p>
