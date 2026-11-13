@@ -1,166 +1,82 @@
 import {
   ArrowRight,
+  ArrowUpRight,
   Check,
+  MessageCircleQuote,
   Sparkles,
+  Users,
 } from "lucide-react";
 
 import { Button } from "../ui/button";
 
 export function Hero() {
   return (
-    <section
-      id="inicio"
-      className="nekko-grid relative overflow-hidden pt-36"
-    >
-      <div className="absolute left-1/2 top-24 h-80 w-80 -translate-x-1/2 rounded-full bg-white/[0.04] blur-3xl" />
+    <section id="inicio" className="nekko-grid relative overflow-hidden pt-36">
+      <div className="pointer-events-none absolute -right-32 top-20 h-96 w-96 rounded-full bg-emerald-400/[0.07] blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-white/[0.035] blur-3xl" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-16 px-5 pb-24 pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pb-32">
+      <div className="relative mx-auto grid max-w-7xl gap-14 px-5 pb-24 pt-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pb-32">
         <div>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-neutral-300">
-            <Sparkles size={14} />
-            Tecnologia para negócios modernos
+            <Sparkles size={14} className="text-emerald-300" />
+            Tecnologia especializada para negócios reais
           </div>
 
-          <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-            Seu negócio.
-            <br />
-
-            <span className="nekko-text-gradient">
-              Mais inteligente.
-            </span>
+          <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
+            Seu negócio merece uma gestão <span className="nekko-text-gradient">mais inteligente.</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-base leading-7 text-neutral-400 sm:text-lg">
-            O NEKKO cria sistemas modernos para organizar,
-            automatizar e fazer seu negócio crescer sem
-            complicação.
+          <p className="mt-7 max-w-xl text-base leading-8 text-neutral-400 sm:text-lg">
+            Conheça sistemas criados para simplificar a rotina, organizar processos e dar mais controle a quem empreende. Encontre a solução certa para o seu negócio.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              onClick={() => {
-                window.location.href = "#sobre";
-              }}
-            >
-              Conhecer o NEKKO
-              <ArrowRight size={17} />
+            <Button onClick={() => { window.location.href = "#produtos"; }}>
+              Encontrar meu sistema <ArrowRight size={17} />
             </Button>
-            
-            <Button
-              variant="secondary"
-              onClick={() => {
-                window.location.href = "#produtos";
-              }}
-            >
-              Conhecer os produtos
+            <Button variant="secondary" onClick={() => { window.location.href = "#planos"; }}>
+              Ver planos e preços
             </Button>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 text-sm text-neutral-400 sm:flex-row sm:items-center sm:gap-5">
-            <div className="flex items-center gap-2">
-              <Check size={16} className="text-white" />
-              Sistemas especializados
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Check size={16} className="text-white" />
-              Gestão simplificada
-            </div>
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm text-neutral-400">
+            <div className="flex items-center gap-2"><Check size={16} className="text-emerald-300" /> Soluções por segmento</div>
+            <div className="flex items-center gap-2"><Check size={16} className="text-emerald-300" /> Gestão em um só lugar</div>
           </div>
         </div>
 
-        <div className="nekko-float relative">
-          <div className="nekko-border nekko-glow rounded-[2rem] bg-neutral-950/90 p-4">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#101010] p-5">
+        <div className="relative mx-auto w-full max-w-xl">
+          <div className="absolute -inset-5 rounded-[2.5rem] bg-gradient-to-br from-emerald-400/[0.10] via-transparent to-pink-300/[0.08] blur-2xl" />
+          <div className="relative grid gap-4 sm:grid-cols-[0.88fr_1.12fr]">
+            <article className="relative flex min-h-[245px] flex-col justify-between overflow-hidden rounded-[1.75rem] border border-emerald-400/20 bg-gradient-to-br from-emerald-400/[0.12] to-zinc-950 p-6 shadow-2xl shadow-black/30">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-neutral-500">
-                    NEKKO SYSTEMS
-                  </p>
-
-                  <h2 className="mt-1 text-xl font-bold">
-                    Seu painel de controle
-                  </h2>
-                </div>
-
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black">
-                  <Sparkles size={19} />
-                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-200/80">NEKKO SYSTEMS</span>
+                <Users size={18} className="text-emerald-200" />
               </div>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <p className="text-xs text-neutral-500">
-                    Organização
-                  </p>
-
-                  <p className="mt-2 text-2xl font-bold">
-                    100%
-                  </p>
-
-                  <div className="mt-3 h-1.5 rounded-full bg-white/10">
-                    <div className="h-1.5 w-full rounded-full bg-white" />
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <p className="text-xs text-neutral-500">
-                    Automação
-                  </p>
-
-                  <p className="mt-2 text-2xl font-bold">
-                    Ativa
-                  </p>
-
-                  <div className="mt-3 h-1.5 rounded-full bg-white/10">
-                    <div className="h-1.5 w-4/5 rounded-full bg-neutral-400" />
-                  </div>
-                </div>
+              <div>
+                <p className="text-5xl font-black tracking-tight text-white sm:text-6xl">+30</p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100">Empresas ativas</p>
+                <p className="mt-4 max-w-[15rem] text-sm leading-6 text-zinc-400">Soluções desenvolvidas para acompanhar a rotina de quem empreende.</p>
               </div>
+              <div className="absolute -bottom-10 -right-8 h-36 w-36 rounded-full border border-emerald-300/10" />
+            </article>
 
-              <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-semibold">
-                    Produtos NEKKO
-                  </p>
-
-                  <span className="text-xs text-neutral-500">
-                    02 ativos
-                  </span>
-                </div>
-
-                <div className="mt-4 space-y-3">
-                  <div className="flex items-center gap-3 rounded-xl bg-emerald-500/10 p-3">
-                    <div className="h-9 w-9 rounded-lg bg-emerald-500/20" />
-
-                    <div>
-                      <p className="text-sm font-semibold">
-                        NEKKO OS
-                      </p>
-
-                      <p className="text-xs text-neutral-500">
-                        Gestão de assistência técnica
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 rounded-xl bg-pink-500/10 p-3">
-                    <div className="h-9 w-9 rounded-lg bg-pink-500/20" />
-
-                    <div>
-                      <p className="text-sm font-semibold">
-                        NEKKO BEAUTY
-                      </p>
-
-                      <p className="text-xs text-neutral-500">
-                        Agenda e gestão de beleza
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            <article className="flex min-h-[245px] flex-col justify-between rounded-[1.75rem] border border-white/10 bg-zinc-950/90 p-6 shadow-2xl shadow-black/30 backdrop-blur">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">A experiência NEKKO</span>
+                <MessageCircleQuote size={18} className="text-zinc-300" />
               </div>
-            </div>
+              <div>
+                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Nosso compromisso</p>
+                <p className="text-lg font-semibold leading-7 text-white">“Mais clareza na rotina. Mais controle sobre o negócio. Mais tempo para crescer.”</p>
+                <p className="mt-3 text-xs leading-5 text-zinc-500">Tecnologia pensada para facilitar o dia a dia de cada negócio.</p>
+              </div>
+              <a href="#produtos" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-zinc-200 transition hover:text-white">
+                Descubra nossas soluções <ArrowUpRight size={15} />
+              </a>
+            </article>
           </div>
+          <p className="mt-3 text-center text-[10px] text-zinc-600">*Indicador de empresas conforme informação comercial da NEKKO SYSTEMS. Atualize o número quando necessário.</p>
         </div>
       </div>
     </section>
