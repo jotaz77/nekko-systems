@@ -9,8 +9,8 @@ const navigation = [
 ];
 
 const products = [
-  { label: "NEKKO OS", href: "#produtos" },
-  { label: "NEKKO BEAUTY", href: "#produtos" },
+  { label: "NEKKO OS", href: "#nekko-os" },
+  { label: "NEKKO BEAUTY", href: "#nekko-beauty" },
 ];
 
 export function Footer() {
@@ -88,7 +88,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-4 text-sm text-zinc-600 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} NEKKO APP. Todos os direitos
+            © {new Date().getFullYear()} NEKKO SYSTEMS. Todos os direitos
             reservados.
           </p>
 
