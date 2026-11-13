@@ -262,7 +262,11 @@ export function Plans() {
 
         <div className="mt-16 space-y-16">
           {plans.map((product) => (
-            <div key={product.product}>
+            <div
+              key={product.product}
+              id={product.product === "NEKKO OS" ? "planos-nekko-os" : "planos-nekko-beauty"}
+              className="scroll-mt-32"
+            >
               <div className="mb-8">
                 <h3
                   className={`text-2xl font-semibold ${
