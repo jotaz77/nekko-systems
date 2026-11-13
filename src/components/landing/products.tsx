@@ -1,179 +1,189 @@
-import type { ReactNode } from "react";
-
+import { useState } from "react";
 import {
   ArrowRight,
-  BarChart3,
-  CalendarDays,
   Check,
-  ClipboardList,
-  Package,
-  Scissors,
-  ShoppingCart,
+  ChevronRight,
+  MonitorPlay,
   Sparkles,
   Store,
-  Users,
 } from "lucide-react";
 
 import { Button } from "../ui/button";
 
-type ProductCardProps = {
-  name: string;
-  description: string;
-  features: string[];
-  icon: ReactNode;
-  color: "green" | "pink";
-  href: string;
-};
+type ProductColor = "green" | "pink";
 
-function ProductCard({
-  name,
-  description,
-  features,
-  icon,
+function MediaShowcase({
+  product,
   color,
-  href,
-}: ProductCardProps) {
+  video,
+  screenshots,
+}: {
+  product: string;
+  color: ProductColor;
+  video: string;
+  screenshots: { src: string; label: string }[];
+}) {
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [failedImages, setFailedImages] = useState<string[]>([]);
   const isGreen = color === "green";
+  const accent = isGreen ? "text-emerald-300" : "text-pink-200";
+  const border = isGreen ? "border-emerald-400/20" : "border-pink-300/20";
+  const glow = isGreen ? "from-emerald-400/[0.10]" : "from-pink-300/[0.10]";
 
   return (
-    <article
-      className={`group relative overflow-hidden rounded-3xl border p-6 transition duration-500 hover:-translate-y-2 md:p-8 ${
-        isGreen
-          ? "border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.08] via-zinc-950 to-zinc-950 hover:border-emerald-400/50"
-          : "border-pink-400/20 bg-gradient-to-br from-pink-400/[0.08] via-zinc-950 to-zinc-950 hover:border-pink-300/50"
-      }`}
-    >
-      <div
-        className={`absolute -right-24 -top-24 h-56 w-56 rounded-full blur-3xl transition duration-500 group-hover:scale-125 ${
-          isGreen ? "bg-emerald-500/10" : "bg-pink-400/10"
-        }`}
-      />
-
-      <div className="relative z-10">
-        <div className="mb-8 flex items-center justify-between">
-          <div
-            className={`flex h-14 w-14 items-center justify-center rounded-2xl border ${
-              isGreen
-                ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
-                : "border-pink-300/20 bg-pink-300/10 text-pink-200"
-            }`}
-          >
-            {icon}
+    <div className="min-w-0">
+      <div className={`relative overflow-hidden rounded-[1.6rem] border ${border} bg-gradient-to-br ${glow} via-zinc-950 to-zinc-950 p-2 shadow-2xl shadow-black/30`}>
+        <div className="flex items-center justify-between px-3 py-3">
+          <div className="flex items-center gap-2">
+            <span className={`h-2 w-2 rounded-full ${isGreen ? "bg-emerald-400" : "bg-pink-300"}`} />
+            <span className="text-xs font-medium text-zinc-300">Demonstração do {product}</span>
           </div>
-
-          <span
-            className={`rounded-full border px-3 py-1 text-xs font-medium ${
-              isGreen
-                ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
-                : "border-pink-300/20 bg-pink-300/10 text-pink-200"
-            }`}
-          >
-            Sistema NEKKO
-          </span>
+          <span className="text-[10px] uppercase tracking-[0.18em] text-zinc-600">Preview</span>
         </div>
 
-        <h3 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-          {name}
-        </h3>
-
-        <p className="mt-4 min-h-[72px] text-sm leading-7 text-zinc-400 md:text-base">
-          {description}
-        </p>
-
-        <div className="my-7 h-px bg-white/10" />
-
-        <ul className="space-y-4">
-          {features.map((feature) => (
-            <li
-              key={feature}
-              className="flex items-center gap-3 text-sm text-zinc-300"
-            >
-              <span
-                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                  isGreen
-                    ? "bg-emerald-400/10 text-emerald-300"
-                    : "bg-pink-300/10 text-pink-200"
-                }`}
-              >
-                <Check size={13} strokeWidth={2.5} />
-              </span>
-
-              {feature}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-8">
-          <Button
-            onClick={() => {
-              window.location.href = href;
-            }}
-            className={`w-full justify-center ${
-              isGreen
-                ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-200 hover:bg-emerald-400/20"
-                : "border-pink-300/20 bg-pink-300/10 text-pink-100 hover:bg-pink-300/20"
-            }`}
-          >
-            Conhecer o {name}
-            <ArrowRight size={17} />
-          </Button>
+        <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-[#08090b]">
+          {!videoFailed ? (
+            <>
+              <video
+                className="h-full w-full object-cover"
+                src={video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                onError={() => setVideoFailed(true)}
+                aria-label={`Demonstração em vídeo do ${product}`}
+              />
+              <div className="pointer-events-none absolute bottom-3 left-3 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 text-[10px] text-zinc-300 backdrop-blur">
+                <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Vídeo demonstrativo
+              </div>
+            </>
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden p-6 text-center">
+              <div className={`absolute -right-12 -top-16 h-48 w-48 rounded-full blur-3xl ${isGreen ? "bg-emerald-400/10" : "bg-pink-300/10"}`} />
+              <div className={`relative flex h-14 w-14 items-center justify-center rounded-2xl border ${border} bg-white/[0.04] ${accent}`}>
+                <MonitorPlay size={26} />
+              </div>
+              <p className="relative mt-5 text-sm font-semibold text-white">Conheça o {product} por dentro</p>
+              <p className="relative mt-2 max-w-sm text-xs leading-6 text-zinc-500">A demonstração em vídeo será exibida aqui. Adicione seu arquivo na pasta <code className="text-zinc-300">public/media</code>.</p>
+              <span className={`relative mt-4 rounded-full border ${border} px-3 py-1.5 text-[10px] ${accent}`}>{video.split("/").pop()}</span>
+            </div>
+          )}
         </div>
       </div>
-    </article>
+
+      <div className="mt-3 grid grid-cols-3 gap-3">
+        {screenshots.map((screenshot) => {
+          const hasFailed = failedImages.includes(screenshot.src);
+          return (
+            <div key={screenshot.src} className="group min-w-0">
+              <div className={`relative aspect-[4/3] overflow-hidden rounded-xl border ${border} bg-zinc-900`}>
+                {!hasFailed ? (
+                  <img
+                    src={screenshot.src}
+                    alt={`${product} — ${screenshot.label}`}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    onError={() => setFailedImages((current) => [...current, screenshot.src])}
+                  />
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-white/[0.05] to-transparent p-2 text-center">
+                    <MonitorPlay size={17} className="text-zinc-600" />
+                    <span className="text-[9px] leading-4 text-zinc-500">Imagem será adicionada</span>
+                  </div>
+                )}
+              </div>
+              <p className="mt-2 truncate text-[10px] text-zinc-500">{screenshot.label}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FeatureList({ features, color }: { features: string[]; color: ProductColor }) {
+  const isGreen = color === "green";
+  return (
+    <ul className="grid gap-x-5 gap-y-3 sm:grid-cols-2">
+      {features.map((feature) => (
+        <li key={feature} className="flex items-start gap-2.5 text-sm leading-6 text-zinc-300">
+          <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${isGreen ? "bg-emerald-400/10 text-emerald-300" : "bg-pink-300/10 text-pink-200"}`}>
+            <Check size={12} strokeWidth={2.5} />
+          </span>
+          {feature}
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export function Products() {
   return (
     <section id="produtos" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-500">
-            Nossas soluções
-          </span>
-
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            Um ecossistema para diferentes tipos de negócio.
-          </h2>
-
-          <p className="mt-6 text-base leading-8 text-zinc-400 md:text-lg">
-            Sistemas pensados para simplificar sua rotina, centralizar sua
-            gestão e ajudar sua empresa a crescer com mais organização.
-          </p>
+          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-500">Encontre sua solução</span>
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white md:text-5xl">Sistemas feitos para a realidade do seu negócio.</h2>
+          <p className="mt-6 text-base leading-8 text-zinc-400 md:text-lg">Conheça cada plataforma, explore suas funcionalidades e veja como a tecnologia certa pode transformar sua rotina.</p>
+          <div className="mt-7 flex flex-wrap justify-center gap-2">
+            <a href="#nekko-os" className="rounded-full border border-emerald-400/20 bg-emerald-400/[0.07] px-4 py-2 text-xs font-semibold text-emerald-200 transition hover:bg-emerald-400/[0.13]">NEKKO OS <ChevronRight size={13} className="ml-1 inline" /></a>
+            <a href="#nekko-beauty" className="rounded-full border border-pink-300/20 bg-pink-300/[0.07] px-4 py-2 text-xs font-semibold text-pink-100 transition hover:bg-pink-300/[0.13]">NEKKO BEAUTY <ChevronRight size={13} className="ml-1 inline" /></a>
+          </div>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <ProductCard
-            name="NEKKO OS"
-            description="Gestão completa para assistências técnicas, lojas de manutenção e empresas que trabalham com uma ou várias filiais."
-            color="green"
-            href="#planos"
-            icon={<Store size={27} />}
-            features={[
-              "Ordens de serviço",
-              "Cadastro de clientes e aparelhos",
-              "Estoque e produtos",
-              "Vendas e cupons",
-              "Dashboard financeiro",
-              "Gestão de múltiplas filiais",
-            ]}
-          />
+        <div className="mt-16 space-y-20 md:mt-20 md:space-y-28">
+          <article id="nekko-os" className="scroll-mt-32 overflow-hidden rounded-[2rem] border border-emerald-400/15 bg-gradient-to-br from-emerald-400/[0.055] via-zinc-950 to-zinc-950 p-5 md:p-9 lg:p-10">
+            <div className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-12">
+              <div>
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300"><Store size={24} /></div>
+                  <div><p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-300/80">ERP • Gestão empresarial</p><p className="mt-1 text-xs text-zinc-500">Para assistências técnicas e lojas</p></div>
+                </div>
+                <h3 className="text-3xl font-bold tracking-tight text-white md:text-4xl">NEKKO <span className="text-emerald-300">OS</span></h3>
+                <p className="mt-5 text-sm leading-7 text-zinc-400 md:text-base">Gestão completa para assistências técnicas, lojas de manutenção e empresas que trabalham com uma ou várias filiais. Organize sua operação, acompanhe resultados e tenha as informações do negócio em um só lugar.</p>
+                <div className="my-7 h-px bg-white/10" />
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">O que você encontra</p>
+                <FeatureList color="green" features={["Ordens de serviço","Cadastro de clientes e aparelhos","Estoque e produtos","Vendas e cupons","Dashboard financeiro","Gestão de múltiplas filiais","Modo CEO","E muito mais"]} />
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button onClick={() => { window.location.href = "#planos-nekko-os"; }} className="border border-emerald-400/20 bg-emerald-400 text-zinc-950 hover:bg-emerald-300">Ver planos do NEKKO OS <ArrowRight size={17} /></Button>
+                  <a href="#faq" className="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-zinc-300 transition hover:bg-white/[0.05]">Tirar dúvidas</a>
+                </div>
+              </div>
+              <MediaShowcase product="NEKKO OS" color="green" video="/media/nekko-os-demo.mp4" screenshots={[
+                { src: "/media/nekko-os-dashboard.webp", label: "Painel financeiro" },
+                { src: "/media/nekko-os-ordens.webp", label: "Ordens de serviço" },
+                { src: "/media/nekko-os-estoque.webp", label: "Estoque e produtos" },
+              ]} />
+            </div>
+          </article>
 
-          <ProductCard
-            name="NEKKO BEAUTY"
-            description="Agenda e gestão inteligente para profissionais da beleza que querem organizar seus horários e cuidar melhor do próprio negócio."
-            color="pink"
-            href="#planos"
-            icon={<Sparkles size={27} />}
-            features={[
-              "Agenda online",
-              "Agendamento de clientes",
-              "Cadastro de serviços",
-              "Controle de horários",
-              "Cadastro de clientes",
-              "Organização da rotina",
-            ]}
-          />
+          <article id="nekko-beauty" className="scroll-mt-32 overflow-hidden rounded-[2rem] border border-pink-300/15 bg-gradient-to-br from-pink-300/[0.055] via-zinc-950 to-zinc-950 p-5 md:p-9 lg:p-10">
+            <div className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-12">
+              <div>
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-pink-300/20 bg-pink-300/10 text-pink-200"><Sparkles size={24} /></div>
+                  <div><p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-pink-200/80">Agenda • Gestão para beleza</p><p className="mt-1 text-xs text-zinc-500">Para profissionais e espaços de beleza</p></div>
+                </div>
+                <h3 className="text-3xl font-bold tracking-tight text-white md:text-4xl">NEKKO <span className="text-pink-200">BEAUTY</span></h3>
+                <p className="mt-5 text-sm leading-7 text-zinc-400 md:text-base">Agenda e gestão para profissionais da beleza, salões e espaços de estética. Organize horários, clientes e serviços para cuidar melhor da rotina e oferecer uma experiência mais profissional.</p>
+                <div className="my-7 h-px bg-white/10" />
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">O que você encontra</p>
+                <FeatureList color="pink" features={["Agenda online","Agendamento de clientes","Cadastro de serviços","Controle de horários","Cadastro de clientes","Organização da rotina","Gestão da agenda","E muito mais"]} />
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button onClick={() => { window.location.href = "#planos-nekko-beauty"; }} className="border border-pink-300/20 bg-pink-200 text-zinc-950 hover:bg-pink-100">Ver planos do NEKKO BEAUTY <ArrowRight size={17} /></Button>
+                  <a href="#faq" className="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-zinc-300 transition hover:bg-white/[0.05]">Tirar dúvidas</a>
+                </div>
+              </div>
+              <MediaShowcase product="NEKKO BEAUTY" color="pink" video="/media/nekko-beauty-demo.mp4" screenshots={[
+                { src: "/media/nekko-beauty-agenda.webp", label: "Agenda" },
+                { src: "/media/nekko-beauty-clientes.webp", label: "Clientes" },
+                { src: "/media/nekko-beauty-servicos.webp", label: "Serviços" },
+              ]} />
+            </div>
+          </article>
         </div>
       </div>
     </section>
